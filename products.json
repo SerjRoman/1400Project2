@@ -1,0 +1,21 @@
+[
+    {
+        "id":1,
+        "name":"product1",
+        "price":50,
+        "category":"keyboards"
+    },
+    {
+        "id":2,
+        "name":"product2",
+        "price":100,
+        "category":"keyboards"
+    },
+    {
+    
+        "id":3,
+        "name":"product3",
+        "price":150,
+        "category":"keyboards"
+    }
+]
