@@ -16,7 +16,7 @@ const products = JSON.parse(fs.readFileSync(productsPath, "utf-8"))
 // 2. Хост/IP address - Уникальный идентификатор на ПК в сети (адрес компьютера)
 // 3. Callback function которая сработает при запуске сервера
 
-const PORT = 8000
+const PORT = 8001
 const HOST = 'localhost'
 // get - метод, который позволяет обработать HTTP запрос
 // Первый параметр - ссылка
@@ -25,9 +25,45 @@ const HOST = 'localhost'
 app.get("/", (req, res) =>{
     res.status(200).json("hello")
 })
-app.get("/products",(req,res)=>{
+// Query параметры - пишутся в ссылке после знака "?". Эти параметры не меняют ссылку(не влият на нее)
+// Если клиент передал Query параметры, тогда их можно получиь с помощью req.query
+app.get("/products", (req,res)=>{
+    console.log(req.query)
+    const max = req.query.max
+    console.log(max)
     res.status(200).json(products)
+
 })
+// route (параметр пути /динамический параметр)-используеться для обработки шаблоного запроса но с разным параметром
+// в express для создание динамическо ссылки мы должны указать двоеточие и название параметра 
+app.get("/products/:id",(req, res)=>{
+    // NaN - Not A Number
+    const id = +req.params.id
+    console.log(id)
+    if (isNaN(id)){
+        res.status(400).json("id must be an integer");
+        return;
+    }
+    const product = products.find((pr)=>{
+        // true/false
+        const isMatch = pr.id === id
+        return isMatch
+    })
+    // product -> undefined | {}
+    // undefined -> false
+    // {} -> true
+    // undefined -> false -> true
+    // {} -> true -> false
+    if (!product){
+        res.status(404).json("product not found")
+        return;
+    }
+    
+    res.json(product)
+})
+// Функции обработчики запросов в Express если и возвращают что то, ТО ТОЛЬКО undefined(void)
+
+
 app.listen(PORT, HOST, () => {
     console.log(`Server started on http://${HOST}:${PORT}`)
 })
