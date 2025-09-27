@@ -27,12 +27,20 @@ app.get("/", (req, res) =>{
 })
 // Query параметры - пишутся в ссылке после знака "?". Эти параметры не меняют ссылку(не влият на нее)
 // Если клиент передал Query параметры, тогда их можно получиь с помощью req.query
+// http://localhost:8000/products
 app.get("/products", (req,res)=>{
     console.log(req.query)
-    const max = req.query.max
-    console.log(max)
+    const take = req.query.take
+    if (take) {
+        if (isNaN(+take)){
+            res.status(400).json("is not a number")
+            return;
+        }
+        const slicedProducts = products.slice(0, +take)
+        res.status(200).json(slicedProducts)
+        return;
+    }
     res.status(200).json(products)
-
 })
 // route (параметр пути /динамический параметр)-используеться для обработки шаблоного запроса но с разным параметром
 // в express для создание динамическо ссылки мы должны указать двоеточие и название параметра 
@@ -49,11 +57,6 @@ app.get("/products/:id",(req, res)=>{
         const isMatch = pr.id === id
         return isMatch
     })
-    // product -> undefined | {}
-    // undefined -> false
-    // {} -> true
-    // undefined -> false -> true
-    // {} -> true -> false
     if (!product){
         res.status(404).json("product not found")
         return;
