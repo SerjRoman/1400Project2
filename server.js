@@ -1,8 +1,13 @@
 const path = require("path")
 const fs = require("fs")
 const express = require('express')
+const fsPromises = require("fs/promises")
+
 // Создаём приложение express 
 const app = express()
+
+// Настраеваем приложение express на получение данных в формате json
+app.use(express.json())
 
 // Получаем путь к файлу products.json
 const productsPath = path.join(__dirname, "products.json")
@@ -65,7 +70,37 @@ app.get("/products/:id",(req, res)=>{
     res.json(product)
 })
 // Функции обработчики запросов в Express если и возвращают что то, ТО ТОЛЬКО undefined(void)
-
+app.post("/products", async (req, res) => {
+    console.log(req.body)
+    const body = req.body
+    if (!body) {
+        res.status(422).json("Body is required.")
+        return
+    }
+    const newProduct = { ...body, id: products.length + 1 }
+    if (!newProduct.name) {
+        res.status(422).json("name is required.")
+        return
+    }
+    if (!newProduct.price) {
+        res.status(422).json("price is required.")
+        return
+    }
+    if (!newProduct.category) {
+        res.status(422).json("category is required.")
+        return
+    }
+    // indent указывается 3 параметром
+    try{
+        products.push(newProduct)
+        await fsPromises.writeFile(productsPath, JSON.stringify(products, null, 4))
+        console.log(newProduct)
+        res.status(201).json(newProduct)
+    } catch (error){
+        console.log(error)
+        res.status(500).json("Product creation error")
+    }
+})
 
 app.listen(PORT, HOST, () => {
     console.log(`Server started on http://${HOST}:${PORT}`)

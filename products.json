@@ -1,21 +1,38 @@
 [
     {
-        "id":1,
-        "name":"product1",
-        "price":50,
-        "category":"keyboards"
+        "id": 1,
+        "name": "product1",
+        "price": 50,
+        "category": "keyboards"
     },
     {
-        "id":2,
-        "name":"product2",
-        "price":100,
-        "category":"keyboards"
+        "id": 2,
+        "name": "product2",
+        "price": 100,
+        "category": "keyboards"
     },
     {
-    
-        "id":3,
-        "name":"product3",
-        "price":150,
-        "category":"keyboards"
+        "id": 3,
+        "name": "product3",
+        "price": 150,
+        "category": "keyboards"
+    },
+    {
+        "name": "New Product 4",
+        "price": 100,
+        "category": "mice",
+        "id": 4
+    },
+    {
+        "name": "New Product 4",
+        "price": 100,
+        "category": "mice",
+        "id": 5
+    },
+    {
+        "name": "New Product 4",
+        "price": 100,
+        "category": "mice",
+        "id": 6
     }
 ]
