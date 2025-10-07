@@ -1,6 +1,8 @@
 
-const express = require('express')
-const ProductRouter = require('./Product/product.routes')
+import express from 'express'
+import { ProductRouter } from './Product/product.routes'
+// const express = require('express')
+// const ProductRouter = require('./Product/product.routes')
 /* 
 Роутер(Router) - указывает какой Контроллер должен обрабатывать запрос. Routes
 
@@ -15,7 +17,7 @@ src - source code - исходный код
 
 
 // Создаём приложение express 
-const app = express()
+const app: express.Express = express()
 
 // Настраеваем приложение express на получение данных в формате json
 app.use(express.json())
@@ -27,8 +29,8 @@ app.use(ProductRouter)
 // 2. Хост/IP address - Уникальный идентификатор на ПК в сети (адрес компьютера)
 // 3. Callback function которая сработает при запуске сервера
 
-const PORT = 8001
-const HOST = 'localhost'
+const PORT: number = 8001
+const HOST: string = 'localhost'
 // get - метод, который позволяет обработать HTTP запрос
 // Первый параметр - ссылка
 // Второй параметр - функция обработки запроса, принимает два аргумента - req, res

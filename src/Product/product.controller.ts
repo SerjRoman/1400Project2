@@ -1,23 +1,30 @@
-const ProductService = require('./product.service')
+import { Request, Response } from "express"
+import { ProductService } from "./product.service"
 
-const ProductController = {
-    getAll: (req,res)=>{ 
-        console.log(req.query)      // C
-        const take = req.query.take // C
-        if (take) {                 // C
-            if (isNaN(+take)){      // C
-                res.status(400).json("is not a number") // C
-                return; // C
+// const ProductService = require('./product.service')
+
+export const ProductController = {
+    getAll: (req: Request,res: Response)=>{ 
+        console.log(req.query)
+        const take = req.query.take 
+        if (take) {
+            if (isNaN(+take)){      
+                res.status(400).json("is not a number")
+                return;
             }
-            const slicedProducts =  ProductService.getAll(take)
-            res.status(200).json(slicedProducts)            // C
+            const slicedProducts =  ProductService.getAll(+take)
+            res.status(200).json(slicedProducts)
             return;
         }
         const products = ProductService.getAll()
-        res.status(200).json(products)                      // C
+        res.status(200).json(products)
     },
-    getById:(req, res)=>{
+    getById:(req: Request, res: Response)=>{
         // NaN - Not A Number
+        if (!req.params.id){
+            res.status(400).json("id is required");
+            return
+        }
         const id = +req.params.id
         console.log(id)
         if (isNaN(id)){
@@ -33,22 +40,22 @@ const ProductController = {
         
         res.json(product)
     },
-    create: async (req, res) => { // R
+    create: async (req: Request, res: Response) => {
         console.log(req.body)
-        const body = req.body                   // C
-        if (!body) {                            // C
+        const body = req.body
+        if (!body) {
             res.status(422).json("Body is required.")
             return
         }
-        if (!body.name) {                                 // C / S
+        if (!body.name) {
             res.status(422).json("name is required.")
             return
         }
-        if (!body.price) {                                // C / S
+        if (!body.price) {
             res.status(422).json("price is required.")
             return
         }
-        if (!body.category) {                             // C / S
+        if (!body.category) {
             res.status(422).json("category is required.")
             return
         }
@@ -67,4 +74,4 @@ const ProductController = {
 }
 
 
-module.exports = ProductController
+// module.exports = ProductController
