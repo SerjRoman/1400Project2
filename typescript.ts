@@ -107,6 +107,7 @@ export const exportedNumber1 = 5
 // Создаем переменную и ПОСЛЕ можно экспортировать с помощью export {}
 const exportedNumber2 = 10
 export { exportedNumber2 }
+
 /*
 Шаги / действия для запуска TS файла
     1. Скачать TS (npm install typescript)

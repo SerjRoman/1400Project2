@@ -67,8 +67,29 @@ export const ProductController = {
         }
         res.status(201).json(product)
     },
-    // update(req, res) {
-    // },
+    async update(req: Request, res: Response) {
+        const id = req.params.id
+        if (!id){
+            res.status(400).json("id is required");
+            return
+        }
+        if (isNaN(+id)){
+            res.status(400).json("id must be an integer");
+            return;
+        }
+        const body = req.body
+        if (body.id){
+            res.status(422).json("body must not consist id");
+            return
+        }
+        const product = await ProductService.update(+id, body)
+        if (!product) {
+            res.status(500).json("Product creation error")
+            return
+        }
+        res.status(200).json(product)
+        
+    },
     // delete(req, res) {
     // }
 }

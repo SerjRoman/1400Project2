@@ -1,9 +1,9 @@
 [
     {
         "id": 1,
-        "name": "product1",
+        "name": "Super product 1",
         "price": 50,
-        "category": "keyboards"
+        "category": null
     },
     {
         "id": 2,

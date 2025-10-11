@@ -10,5 +10,6 @@ ProductRouter.get("/products/", ProductController.getAll)
 ProductRouter.get("/products/:id", ProductController.getById)
 // Функции обработчики запросов в Express если и возвращают что то, ТО ТОЛЬКО undefined(void)
 ProductRouter.post("/products", ProductController.create)
+ProductRouter.put("/products/:id", ProductController.update)
 
 export { ProductRouter }

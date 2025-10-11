@@ -1,6 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import fsPromises from 'fs/promises'
+import { Product, ProductServiceContract } from './product.types'
 
 
 // {
@@ -15,22 +16,18 @@ import fsPromises from 'fs/promises'
 const productsPath = path.join(__dirname, "products.json")
 // Получаем данные из файла с помощью readFileSync в строковом формате
 // Т.к. данные строковые но в формате жсона мы можем переделать из в типы данных js с помощью  JSON.parse
-const products: {
-    id: number,
-    name: string,
-    price: number,
-    category: string
-}[] = JSON.parse(fs.readFileSync(productsPath, "utf-8"))
+const products: Product[] = JSON.parse(fs.readFileSync(productsPath, "utf-8"))
 
 
-export const ProductService = {
-    getAll (take?: number){
+
+export const ProductService: ProductServiceContract= {
+    getAll (take) {
         if(!take){
             return products
         }
         return products.slice(0, +take)
     },
-    getById (id: number){
+    getById (id){
         const product = products.find((pr)=>{
             // true/false
             const isMatch = pr.id === id
@@ -38,11 +35,7 @@ export const ProductService = {
         })
         return product
     },
-    async create (data: {
-        name: string,
-        price: number,
-        category: string 
-    }){
+    async create (data){
         try{
             const newProduct = { ...data, id: products.length + 1 }
             products.push(newProduct)
@@ -54,5 +47,22 @@ export const ProductService = {
             console.log(error)
             return null
         }
-    }
+    },
+    async update(id, data) {
+        const product = this.getById(id)
+        if (!product) {
+            return null
+        }
+
+        try {
+            // {...product, {name: "Super product"}}
+            const updatedProduct = { ...product, ...data }
+            products.splice(id - 1, 1, updatedProduct)
+            await fsPromises.writeFile(productsPath, JSON.stringify(products, null, 4))
+            return updatedProduct
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+    },
 }
