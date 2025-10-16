@@ -1,10 +1,11 @@
 import { Request, Response } from "express"
 import { ProductService } from "./product.service"
+import { ProductControllerContract } from "./product.types"
 
 // const ProductService = require('./product.service')
 
-export const ProductController = {
-    getAll: (req: Request,res: Response)=>{ 
+export const ProductController: ProductControllerContract = {
+    getAll: (req, res)=>{ 
         console.log(req.query)
         const take = req.query.take 
         if (take) {
@@ -40,7 +41,7 @@ export const ProductController = {
         
         res.json(product)
     },
-    create: async (req: Request, res: Response) => {
+    create: async (req, res) => {
         console.log(req.body)
         const body = req.body
         if (!body) {
@@ -67,7 +68,7 @@ export const ProductController = {
         }
         res.status(201).json(product)
     },
-    async update(req: Request, res: Response) {
+    async update(req, res) {
         const id = req.params.id
         if (!id){
             res.status(400).json("id is required");
