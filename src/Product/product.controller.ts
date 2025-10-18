@@ -79,7 +79,9 @@ export const ProductController: ProductControllerContract = {
             return;
         }
         const body = req.body
-        if (body.id){
+        // Проверяем наличие ключа id в объекте body
+        // "key" in object
+        if ("id" in body){
             res.status(422).json("body must not consist id");
             return
         }

@@ -8,7 +8,7 @@
      * Мы говорим: "Эта функция будет работать с каким-то типом T, который мы узнаем позже".
 */
 
-import { Product, ProductCreate } from "./src/Product/product.types"
+import { Product, ProductCreate } from "../src/Product/product.types"
 
 interface User {
     id: number
@@ -67,4 +67,5 @@ const products: SomeData<Product[]> = {
         price: 0
     }]
 }
+
 

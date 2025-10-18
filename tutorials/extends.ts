@@ -34,7 +34,7 @@ class Bird extends Animal {
 
 
 
-interface SomeData2<T extends > {
+interface SomeData2<T extends string> {
     status: "ok" | "error",
     data: T
 }
