@@ -5,7 +5,7 @@ import { ProductControllerContract } from "./product.types"
 // const ProductService = require('./product.service')
 
 export const ProductController: ProductControllerContract = {
-    getAll: (req, res)=>{ 
+    getAll: async (req, res)=>{ 
         console.log(req.query)
         const take = req.query.take 
         if (take) {
@@ -13,14 +13,14 @@ export const ProductController: ProductControllerContract = {
                 res.status(400).json("is not a number")
                 return;
             }
-            const slicedProducts =  ProductService.getAll(+take)
+            const slicedProducts =  await ProductService.getAll(+take)
             res.status(200).json(slicedProducts)
             return;
         }
-        const products = ProductService.getAll()
+        const products = await ProductService.getAll()
         res.status(200).json(products)
     },
-    getById:(req: Request, res: Response)=>{
+    getById: async(req, res)=>{
         // NaN - Not A Number
         if (!req.params.id){
             res.status(400).json("id is required");
@@ -32,7 +32,7 @@ export const ProductController: ProductControllerContract = {
             res.status(400).json("id must be an integer");
             return;
         }
-        const product = ProductService.getById(id)
+        const product = await ProductService.getById(id)
         
         if (!product){
             res.status(404).json("product not found")
@@ -56,7 +56,7 @@ export const ProductController: ProductControllerContract = {
             res.status(422).json("price is required.")
             return
         }
-        if (!body.category) {
+        if (!body.categoryId) {
             res.status(422).json("category is required.")
             return
         }
