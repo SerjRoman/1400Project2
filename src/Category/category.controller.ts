@@ -73,7 +73,7 @@ export const CategoryController: CategoryControllerContract = {
             return
         }
         try{
-            const deletedCategory = CategoryService.delete(+id)
+            const deletedCategory = await CategoryService.delete(+id)
             res.status(200).json(deletedCategory)
         }catch (error){
             console.log(error)

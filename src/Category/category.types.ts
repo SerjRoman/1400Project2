@@ -10,7 +10,7 @@ type CategoryCreate = Prisma.CategoryUncheckedCreateInput
 // getAll, getById, create, delete
 export interface CategoryControllerContract {
     getAll: (req: Request<object, Category[] | string, object, {take?: string, skip?: string}>, res: Response<Category[] | string>) => Promise<void>
-    getById: (req: Request<{id: string}, Category | string>, res: Response<Category | string>) => Promise<void>
+    getById: (req: Request<{id: string}, Category | string | null>, res: Response<Category | string | null> ) => Promise<void>
     create: (req: Request<object, Category | string, CategoryCreate>, res: Response<Category | string>) => Promise<void>
     delete: (req: Request<{id: string}, Category | string>, res: Response<Category | string>) => Promise<void>
 }

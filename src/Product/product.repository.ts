@@ -23,15 +23,11 @@ export const ProductRepository: ProductRepositoryContract = {
         }
     },
     async getAll (take){
-        if (take){
-            const products = await Client.product.findMany({
-                take: take,
-            })
-            return products    
-        } else{
-            const products = await Client.product.findMany({}) 
-            return products
-        }
+        const products = await Client.product.findMany({
+            take: take,
+        })
+        return products    
+        
     },
     async create(data) {
         return await Client.product.create({data})
