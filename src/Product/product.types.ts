@@ -11,7 +11,7 @@ export type ProductUpdate = Prisma.ProductUncheckedUpdateInput
 export interface ProductServiceContract {
     getById: (id: number) => Promise<Product | null>
     getAll: (take?: number) => Promise<Product[]>
-    create: (data: ProductCreate) => Promise<Product | null>
+    create: (data: P roductCreate) => Promise<Product | null>
     update: (id: number, data: ProductUpdate) => Promise<Product | null>
 }
 // GetById, Update, Create, GetAll
