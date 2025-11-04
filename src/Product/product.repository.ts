@@ -1,12 +1,12 @@
 import {  ProductRepositoryContract } from "./product.types";
 import { PrismaClient as PC, Prisma } from "../generated/prisma"; 
+import { Client } from "../prisma/client";
 
-const PrismaClient = new PC() 
 
 export const ProductRepository: ProductRepositoryContract = {
     async getById(id){
         try {
-            const product = await PrismaClient.product.findUnique({
+            const product = await Client.product.findUnique({
                 where:{id: id}
             })
             return product
@@ -16,7 +16,7 @@ export const ProductRepository: ProductRepositoryContract = {
                 if (error.code === 'P2009') {
                     console.log("Validation error")
                 } else if (error.code === 'P2025') {
-                    console.log("Entity is not found")
+                    console.log("Not found")
                 }
             }
             throw error
@@ -24,20 +24,20 @@ export const ProductRepository: ProductRepositoryContract = {
     },
     async getAll (take){
         if (take){
-            const products = await PrismaClient.product.findMany({
+            const products = await Client.product.findMany({
                 take: take,
             })
             return products    
         } else{
-            const products = await PrismaClient.product.findMany({}) 
+            const products = await Client.product.findMany({}) 
             return products
         }
     },
     async create(data) {
-        return await PrismaClient.product.create({data})
+        return await Client.product.create({data})
     },
     async update(id, data) {
-        return await PrismaClient.product.update({
+        return await Client.product.update({
             where: {
                 id
             }, 

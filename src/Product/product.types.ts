@@ -5,7 +5,8 @@ export type Product = Prisma.ProductGetPayload<{}>
 export type ProductCreate = Prisma.ProductUncheckedCreateInput
 export type ProductUpdate = Prisma.ProductUncheckedUpdateInput
 
-// Unchekced - {categoryId} | Checked - {category: {connect: {id: categoryId}}}
+// ModelUncheckedCreateInput - {categoryId} 
+// ModelCreateInput(Checked) - {category: {connect: {id: categoryId}}}
 // Контракты строго определяют задачи объектов или классов
 export interface ProductServiceContract {
     getById: (id: number) => Promise<Product | null>
