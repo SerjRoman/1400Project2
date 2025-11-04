@@ -3,10 +3,16 @@ import { Client } from "../prisma/client";
 
 export const CategoryRepository: CategoryRepositoryContract = {
     async getAll(take, skip){
-        return await Client.category.findMany({
-            take: take,
-            skip: skip
-        })
+        try {
+            return await Client.category.findMany({
+                take: take,
+                skip: skip
+            })
+            
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
     },
         
     async getById(id){
@@ -39,6 +45,7 @@ export const CategoryRepository: CategoryRepositoryContract = {
             })
         }
         catch (error) {
+            console.log(error)
             throw error
         }
     }
