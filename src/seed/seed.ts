@@ -170,3 +170,6 @@ export type CategoryUncheckedCreateInput = Prisma.ProductUncheckedCreateInput
 
 export type CategoryWhereUnique = Prisma.CategoryWhereUniqueInput
 
+
+
+

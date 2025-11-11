@@ -1,6 +1,7 @@
 
 import express from 'express'
 import { ProductRouter } from './Product/product.routes'
+import { ENV } from './config/env'
 // const express = require('express')
 // const ProductRouter = require('./Product/product.routes')
 /* 
@@ -51,3 +52,4 @@ app.get("/", (req, res) =>{
 app.listen(PORT, HOST, () => {
     console.log(`Server started on http://${HOST}:${PORT}`)
 })
+

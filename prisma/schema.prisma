@@ -20,14 +20,22 @@ model Product {
   price      Float
   image      String?
   categoryId Int // FK - foreign key, PK другой модели
-                        // fields - в какое поле В ТЕКУЩЕЙ модели записать FK
-                        // references - из какого поля В ДРУГОЙ модели взять значение для FK
+  // fields - в какое поле В ТЕКУЩЕЙ модели записать FK
+  // references - из какого поля В ДРУГОЙ модели взять значение для FK
   category   Category @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  name     String @unique
-  createdAt DateTime @default(now())
-  products Product[]
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String
+  email    String @unique
+  avatar   String?
+  password String
 }
