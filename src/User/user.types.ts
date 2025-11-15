@@ -18,9 +18,9 @@ export interface LoginCredentials {
     password: string
 }
 export interface UserControllerContract {
-    register: (req: Request<object, string, UserCreate>, res: Response<ErrorResponse | UserAuthResponse>) => Promise<void>
+    register: (req: Request<object, ErrorResponse | UserAuthResponse, UserCreate>, res: Response<ErrorResponse | UserAuthResponse>) => Promise<void>
     login: (req: Request<object, ErrorResponse | UserAuthResponse, LoginCredentials>, res: Response<ErrorResponse | UserAuthResponse>) => Promise<void>
-    me: (req: Request<object, ErrorResponse | UserWithoutPassword>, res: Response<ErrorResponse | UserWithoutPassword>) => Promise<void>
+    me: (req: Request<object, ErrorResponse | UserWithoutPassword, object, object, {userId: number}>, res: Response<ErrorResponse | UserWithoutPassword, {userId: number}>) => Promise<void>
 }
 // 
 export interface UserRepositoryContract {

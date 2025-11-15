@@ -1,7 +1,7 @@
-
 import express from 'express'
 import { ProductRouter } from './Product/product.routes'
-import { ENV } from './config/env'
+import { UserRouter } from './User/user.routes'
+import { logMiddleware } from './middlewares/log.middleware'
 // const express = require('express')
 // const ProductRouter = require('./Product/product.routes')
 /* 
@@ -22,7 +22,10 @@ const app: express.Express = express()
 
 // Настраеваем приложение express на получение данных в формате json
 app.use(express.json())
-app.use(ProductRouter)
+
+app.use(logMiddleware)
+app.use("/products/", ProductRouter)
+app.use("/users/", UserRouter)
 
 // Метод listen запускает приложение express
 // Метод принимает 3 параметра
