@@ -2,8 +2,8 @@ import express from 'express'
 import { ProductRouter } from './Product/product.routes'
 import { UserRouter } from './User/user.routes'
 import { logMiddleware } from './middlewares/log.middleware'
-// const express = require('express')
-// const ProductRouter = require('./Product/product.routes')
+import { CategoryRouter } from './Category/category.routes'
+import cors from 'cors'
 /* 
 Роутер(Router) - указывает какой Контроллер должен обрабатывать запрос. Routes
 
@@ -22,9 +22,13 @@ const app: express.Express = express()
 
 // Настраеваем приложение express на получение данных в формате json
 app.use(express.json())
+app.use(cors({
+    origin: "http://localhost:3000"
+}))
 
 app.use(logMiddleware)
 app.use("/products/", ProductRouter)
+app.use("/categories/", CategoryRouter)
 app.use("/users/", UserRouter)
 
 // Метод listen запускает приложение express
